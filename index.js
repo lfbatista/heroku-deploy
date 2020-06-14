@@ -22,9 +22,11 @@ async function buildPushAndDeploy() {
   const herokuAction = herokuActionSetUp(appName);
   
   try {
-    await exec(`cd ${dockerFilePath}`);
+//     await exec(`cd ${dockerFilePath}`);
+    await exec(`cd .`);
 
-    await exec(`docker build . --file Dockerfile ${buildOptions} --tag registry.heroku.com/${appName}/web`);
+//     await exec(`docker build . --file Dockerfile ${buildOptions} --tag registry.heroku.com/${appName}/web`);
+    await exec(`docker build . --file Dockerfile ${buildOptions} --tag registry.heroku.com/${appName}/web`,  {maxBuffer: 1024 * 2000});
     console.log('Image built 🛠');
 
     await exec(herokuAction('push'));
